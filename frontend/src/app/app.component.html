@@ -1,0 +1,13 @@
+<header class="app-header">
+  <div class="container header-content">
+    <h1>🔐 2FA Banking Demo</h1>
+    <div class="user-info" *ngIf="username">
+      <span>Welcome, {{ username }}</span>
+      <button class="btn btn-danger" (click)="logout()">Logout</button>
+    </div>
+  </div>
+</header>
+
+<main class="container main-content">
+  <router-outlet></router-outlet>
+</main>

@@ -1,0 +1,42 @@
+<div class="cards-container">
+  <h2>My Payment Cards</h2>
+  <p class="subtitle">
+    ⚠️ Accessing card details requires Two-Factor Authentication (2FA / OTP)
+  </p>
+
+  <div *ngIf="error" class="error-message">{{ error }}</div>
+
+  <div *ngIf="loading" class="loading">Loading…</div>
+
+  <div class="cards-grid" *ngIf="!loading && cards.length > 0">
+    <div class="card-item" *ngFor="let card of cards">
+      <div class="card-header">
+        <span>💳 Payment Card</span>
+        <span>#{{ card.id }}</span>
+      </div>
+      <div class="card-number">{{ maskCardNumber(card.cardNumber) }}</div>
+      <div class="card-meta">
+        <div>
+          <label>Card Holder</label>
+          <span>{{ card.cardHolder }}</span>
+        </div>
+        <div>
+          <label>Expires</label>
+          <span>{{ card.expiryDate }}</span>
+        </div>
+      </div>
+      <button class="btn btn-view" (click)="viewCard(card.id)">
+        🔍 View Full Details (Requires 2FA)
+      </button>
+    </div>
+  </div>
+
+  <div class="card-details" *ngIf="selectedCard">
+    <h3>✅ Card Details — Secured by 2FA</h3>
+    <div class="detail-row"><label>Card Number</label><span class="mono">{{ selectedCard.cardNumber }}</span></div>
+    <div class="detail-row"><label>Card Holder</label><span>{{ selectedCard.cardHolder }}</span></div>
+    <div class="detail-row"><label>Expiry Date</label><span>{{ selectedCard.expiryDate }}</span></div>
+    <div class="detail-row"><label>CVV</label><span class="mono">{{ selectedCard.cvv }}</span></div>
+    <div class="detail-row"><label>Balance</label><span class="balance">{{ formatBalance(selectedCard.balance) }}</span></div>
+  </div>
+</div>
